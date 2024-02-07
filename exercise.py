@@ -161,27 +161,20 @@ def task_27953():
         'Этилен винилацетат (EVA)': 18,
         'Этилен и этилакрилат (EEA)': 20.5,
         'Эфир виниловый': {'min_length': 1.6, 'max_length': 2.2},
-
-
-
-
-
-
-
-
     }
+    
     # При возрастании температуры происходит тепловое расширение
     values_list = [
-        {'element': 'рельс', 'genitive_case': 'рельса', 'material': 'Железо, чистое', 'belong': 'его',
-         'coefficient': 1.2, 'min_length': 1, 'max_length': 25},
-        {'element': 'линейка', 'genitive_case': 'линейки', 'material': 'Сталь', 'belong': 'её', 'coefficient': 1.3,
+        {'element': 'рельс', 'genitive_case': 'рельса', 'material': 'Железо, чистое', 'belong': 'его', 'min_length': 1,
+         'max_length': 25},
+        {'element': 'линейка', 'genitive_case': 'линейки', 'material': 'Сталь', 'belong': 'её',
          'step_length': [0.150, 0.300, 0.500, 1, 1.5, 2, 3]
          },
-        {'element': 'рулетка', 'genitive_case': 'рулетки', 'material': 'Сталь', 'belong': 'её', 'coefficient': 1.3,
+        {'element': 'рулетка', 'genitive_case': 'рулетки', 'material': 'Сталь', 'belong': 'её',
          'step_length': [3, 5, 8, 10, 15, 20, 30, 50, 60]
          },
         {'element': 'медный стержень', 'genitive_case': 'медного стержня', 'material': 'Медь', 'belong': 'его',
-         'coefficient': 1.66, 'step_length': [1, 1.2, 1.5, 2, 2.2, 2.5, 3]
+         'step_length': [1, 1.2, 1.5, 2, 2.2, 2.5, 3]
          },
     ]
 
@@ -201,9 +194,6 @@ def task_27953():
 
         if isinstance(coefficient, dict):
             coefficient = round(np.random.uniform(coefficient.get('min_length'), coefficient.get('max_length')), 2)
-
-        print(coefficient)
-        return
 
         if min_length and max_length:
             zero_length = np.random.randint(min_length, max_length)
