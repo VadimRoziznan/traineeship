@@ -43,6 +43,25 @@ def task_27953():
         'Железо, литое': 1.04,
         'Железо, кованое': 1.13,
         'Золото': 1.42,
+        'Известняк': 0.8,
+        'Инвар (сплав железа с никелем)': 0.15,
+        'Инконель (сплав)': 1.26,
+        'Иридий': 0.64,
+        'Иттербий': 2.63,
+        'Иттрий': 1.06,
+        'Кадмий': 3,
+        'Калий': 8.3,
+        'Кальций': 2.23,
+        'Каменная кладка': {'min_length': 0.47, 'max_length': 0.9},
+        'Каучук, твердый': 7.7,
+        'Кварц': {'min_length': 0.077, 'max_length': 0.09},
+        'Керамическая плитка (черепица)': 0.59,
+        'Кирпич': 0.55,
+        'Кобальт': 1.2,
+        'Констанан (сплав)': 1.88,
+        'Корунд, спеченный': 0.65,
+        'Кремний': 0.51,
+        
 
 
 
@@ -51,19 +70,16 @@ def task_27953():
     }
     # При возрастании температуры происходит тепловое расширение
     values_list = [
-        {'element': 'рельс', 'genitive_case': 'рельса', 'material': 'Железо, чистое', 'belong': 'его', 'coefficient': 1.2, 'min_length': 1,
-         'max_length': 25},
-        {'element': 'линейка', 'genitive_case': 'линейки', 'material': 'Сталь', 'belong': 'её', 'coefficient': 1.3, 'step_length': [
-            0.150, 0.300, 0.500, 1, 1.5, 2, 3
-        ]
+        {'element': 'рельс', 'genitive_case': 'рельса', 'material': 'Каменная кладка', 'belong': 'его',
+         'coefficient': 1.2, 'min_length': 1, 'max_length': 25},
+        {'element': 'линейка', 'genitive_case': 'линейки', 'material': 'Сталь', 'belong': 'её', 'coefficient': 1.3,
+         'step_length': [0.150, 0.300, 0.500, 1, 1.5, 2, 3]
          },
-        {'element': 'рулетка', 'genitive_case': 'рулетки', 'material': 'Сталь', 'belong': 'её', 'coefficient': 1.3, 'step_length': [
-            3, 5, 8, 10, 15, 20, 30, 50, 60
-        ]
+        {'element': 'рулетка', 'genitive_case': 'рулетки', 'material': 'Сталь', 'belong': 'её', 'coefficient': 1.3,
+         'step_length': [3, 5, 8, 10, 15, 20, 30, 50, 60]
          },
-        {'element': 'медный стержень', 'genitive_case': 'медного стержня', 'material': 'Медь', 'belong': 'его', 'coefficient': 1.66, 'step_length': [
-            1, 1.2, 1.5, 2, 2.2, 2.5, 3
-        ]
+        {'element': 'медный стержень', 'genitive_case': 'медного стержня', 'material': 'Медь', 'belong': 'его',
+         'coefficient': 1.66, 'step_length': [1, 1.2, 1.5, 2, 2.2, 2.5, 3]
          },
     ]
 
@@ -74,18 +90,24 @@ def task_27953():
     genitive_case = data.get('genitive_case')
     belong = data.get('belong')
     coefficient = thermal_expansion_coefficient.get(data.get('material'))
-    print(coefficient)
-    return
     min_length = data.get('min_length')
     max_length = data.get('max_length')
     length = data.get('step_length')
 
     while True:
         alpha = coefficient * 10 ** (-5)
+
+        if isinstance(coefficient, dict):
+            coefficient = round(np.random.uniform(coefficient.get('min_length'), coefficient.get('max_length')), 2)
+
+        print(coefficient)
+        return
+
         if min_length and max_length:
-            zero_length = np.random.randint(1, 25)
-        else:
+            zero_length = np.random.randint(min_length, max_length)
+        elif length:
             zero_length = np.random.choice(length)
+
         increase = np.random.randint(1, 10)
         task = (f'При температуре ' + '\(0^{\circ}C\)' + f' {element} имеет длину ' + r'\(l_{\circ}=' + latex(zero_length) + r'\)' +
                 f'м. При возрастании температуры происходит тепловое расширение {genitive_case}, и {belong} длина, выраженная в '
