@@ -1,6 +1,5 @@
 from difflib import SequenceMatcher
 from pprint import pprint
-
 import numpy as np
 from sympy import latex
 
@@ -182,6 +181,12 @@ def task_27953():
          },
         {'element': 'медный стержень', 'genitive_case': 'медного стержня', 'material': 'Медь', 'belong': 'его',
          'step_length': [1, 1.2, 1.5, 2, 2.2, 2.5, 3]
+         },
+        {'element': 'алюминиевый потолочный карниз', 'genitive_case': 'алюминиевого потолочного карниза',
+         'material': 'Алюминий', 'belong': 'его',
+         'step_length': [
+             1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20, 3.40, 3.60, 4.00, 1.00, 4.20, 4.40, 4.60, 4.80
+         ]
          },
     ]
 
