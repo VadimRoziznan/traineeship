@@ -1,12 +1,19 @@
+from difflib import SequenceMatcher
+from pprint import pprint
+
 import numpy as np
 from sympy import latex
 
 
 def task_27953():
+
     """
     Задача №27953 с портала https://ege.sdamgia.ru/problem?id=27953
     """
 
+    # Температурные коэффициенты линейного расширения.
+    # Примечание: источниками справочных данных являются публикации в Интернете, поэтому они не могут считаться
+    # «официальными» и «абсолютно точными».
     thermal_expansion_coefficient = {
         'ABS (акрилонитрил-бутадиен-стирол) термопласт': 7.38,
         'ABS - стекло, армированное волокнами': 3.04,
@@ -162,8 +169,8 @@ def task_27953():
         'Этилен и этилакрилат (EEA)': 20.5,
         'Эфир виниловый': {'min_length': 1.6, 'max_length': 2.2},
     }
-    
-    # При возрастании температуры происходит тепловое расширение
+
+    # Сюжеты задачи
     values_list = [
         {'element': 'рельс', 'genitive_case': 'рельса', 'material': 'Железо, чистое', 'belong': 'его', 'min_length': 1,
          'max_length': 25},
@@ -178,9 +185,10 @@ def task_27953():
          },
     ]
 
-    # случайным образом получаем сюжет задачи
+    # Случайным образом получаем сюжет задачи
     data = np.random.choice(values_list)
 
+    # Получаем элементы сюжета
     element = data.get('element')
     genitive_case = data.get('genitive_case')
     belong = data.get('belong')
@@ -190,8 +198,6 @@ def task_27953():
     length = data.get('step_length')
 
     while True:
-        alpha = coefficient * 10 ** (-5)
-
         if isinstance(coefficient, dict):
             coefficient = round(np.random.uniform(coefficient.get('min_length'), coefficient.get('max_length')), 2)
 
@@ -200,6 +206,7 @@ def task_27953():
         elif length:
             zero_length = np.random.choice(length)
 
+        alpha = coefficient * 10 ** (-5)
         increase = np.random.randint(1, 10)
         task = (f'При температуре ' + '\(0^{\circ}C\)' + f' {element} имеет длину ' + r'\(l_{\circ}=' + latex(zero_length) + r'\)' +
                 f'м. При возрастании температуры происходит тепловое расширение {genitive_case}, и {belong} длина, выраженная в '
@@ -210,6 +217,26 @@ def task_27953():
         answer = round(increase * 10 ** (-3) / (alpha * zero_length))
         if 1 <= answer <= 200:
             break
+
+    def checking_plot(name: str, checklist: list, correction_percentage: int) -> list:
+        """
+        Функция возвращает отчет в котором указывается номер элемента и в каком процентном соотношении совпадает
+        строка переданная в name с элементом каждого сценария, в функции есть настраиваемый параметр
+        correction_percentage, при необходимости измените процент коррекции.
+        """
+        report = []
+
+        for index, plot in enumerate(checklist):
+            matcher = round(SequenceMatcher(None, name.lower(), plot.get('element')).ratio() * 100)
+
+            if matcher > correction_percentage:
+                report.append(f'Элемент с номером {index} имеет совпадение {matcher}')
+
+        return report
+
+    #При необходимости проверить сюжеты на вхождение имени раскомментировать код, измените значение name на необходимый,
+    #при необходимости измените процент коррекции.
+    #pprint(checking_plot(name='медные Стержни', checklist=values_list, correction_percentage=50))
 
     return task, answer
 
