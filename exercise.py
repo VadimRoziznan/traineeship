@@ -213,25 +213,30 @@ def task_27953():
 
     # Сюжеты задачи
     values_list = (
-        {'element': 'рельс', 'min_length': 1, 'max_length': 25,
+        {'element': 'рельс',
+         'min_length': 1,
+         'max_length': 25,
          'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Сталь')},
-        {'element': 'линейка', 'step_length': [0.150, 0.300, 0.500, 1, 1.5, 2, 3],
+        {'element': 'линейка',
+         'step_length': [0.150, 0.300, 0.500, 1, 1.5, 2, 3],
          'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Сталь')},
-        {'element': 'рулетка', 'step_length': [3, 5, 8, 10, 15, 20, 30, 50, 60],
+        {'element': 'рулетка',
+         'step_length': [3, 5, 8, 10, 15, 20, 30, 50, 60],
          'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Сталь')},
-        {'element': 'медный стержень', 'step_length': [1, 1.2, 1.5, 2, 2.2, 2.5, 3],
+        {'element': 'медный стержень',
+         'step_length': [1, 1.2, 1.5, 2, 2.2, 2.5, 3],
          'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Медь')},
-        {'element': 'алюминиевый потолочный карниз', 'step_length': [
-            1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20, 3.40, 3.60, 4.00, 1.00, 4.20, 4.40, 4.60, 4.80
-         ], 'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Алюминий')},
+        {'element': 'алюминиевый потолочный карниз',
+         'step_length': [1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20, 3.40, 3.60, 4.00, 1.00, 4.20,
+                         4.40, 4.60, 4.80],
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Алюминий')},
     )
-
 
 
     # Случайным образом получаем сюжет задачи
     data = np.random.choice(values_list)
 
-    # Получаем nемпературный коэффициент линейного расширения
+    # Получаем температурный коэффициент линейного расширения
     coefficient = data.get('thermal_expansion_coefficient')
 
 
@@ -244,7 +249,7 @@ def task_27953():
         elif data.get('step_length'):
             zero_length = np.random.choice(data.get('step_length'))
         alpha = coefficient * 10 ** (-5)
-        increase = np.random.randint(1, 10)
+        increase = round(np.random.uniform(0.1, 10), 1)
         task = (f'При температуре ' + '\(0^{\circ}C\)' + f' {data.get("element")} имеет длину ' + r'\(l_{\circ}=' + latex(zero_length) + r'\)' +
                 f'м. При возрастании температуры происходит тепловое расширение {choosing_declension_form(data.get("element"), case="gent")}, и {get_modified_pronoun(word=data.get("element").split()[-1], сase="gen2", pronoun_masc="он", pronoun_femn="она", pronoun_neut="оно")} длина, выраженная в '
                 f'метрах, меняется по закону ' + r'\(l(t^{\circ})=l_0(1+\alpha{\cdot}t^{\circ})\),' + ' где '
@@ -252,7 +257,7 @@ def task_27953():
                 + '\(t^{\circ}\)' + f' — температура (в градусах Цельсия). При какой температуре {data.get("element")} '
                 f'удлинится на {increase}мм? Ответ выразите в градусах Цельсия.')
         answer = round(increase * 10 ** (-3) / (alpha * zero_length))
-        if 1 <= answer <= 200:
+        if 1 <= answer <= 60:
             break
 
     def checking_plot(name: str, checklist: list, correction_percentage: int) -> list:
