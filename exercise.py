@@ -1,7 +1,49 @@
 from difflib import SequenceMatcher
-from pprint import pprint
+import pymorphy2
 import numpy as np
 from sympy import latex
+
+
+def choosing_declension_form(word: (str, list), case: str) -> str:
+
+    '''
+    Функция подбирает правильную форму склонения переданного слова, см. https://opencorpora.org/dict.php?act=gram,
+    по умолчанию слово пропишется в родительном падеже
+    '''
+
+    morph = pymorphy2.MorphAnalyzer()
+    if len(word.split()) == 1:
+        return morph.parse(word)[0].inflect({case}).word
+    else:
+        list_morphy = []
+        for i in word.split():
+            list_morphy.append(morph.parse(i)[0].inflect({case}).word)
+        return ' '.join(list_morphy)
+
+
+def get_modified_pronoun(
+        word: str, сase: str, pronoun_masc=None, pronoun_femn=None, pronoun_neut=None) -> (str, None):
+
+    '''
+    Функция меняет форму указательных местоимений учитывая род переданного существительного в параметре word,
+    При использовании не корректного слова в параметре word или слова которого нет в словаре pymorphy2 функция
+    вернёт None.
+    '''
+
+    morph = pymorphy2.MorphAnalyzer()
+    gender_first_word = morph.parse(word)[0].tag.gender
+    if gender_first_word == 'masc' and pronoun_masc:
+        new_gender_second_word = morph.parse(pronoun_masc)[0].inflect({сase}).word
+        return new_gender_second_word
+    elif gender_first_word == 'femn' and pronoun_femn:
+        new_gender_second_word = morph.parse(pronoun_femn)[0].inflect({сase}).word
+        return new_gender_second_word
+    elif gender_first_word == 'neut' and pronoun_neut:
+        new_gender_second_word = morph.parse(pronoun_neut)[0].inflect({сase}).word
+        return new_gender_second_word
+
+    return None
+
 
 
 def task_27953():
@@ -13,7 +55,7 @@ def task_27953():
     # Температурные коэффициенты линейного расширения.
     # Примечание: источниками справочных данных являются публикации в Интернете, поэтому они не могут считаться
     # «официальными» и «абсолютно точными».
-    thermal_expansion_coefficient = {
+    list_thermal_expansion_coefficient = {
         'ABS (акрилонитрил-бутадиен-стирол) термопласт': 7.38,
         'ABS - стекло, армированное волокнами': 3.04,
         'Акриловый материал, прессованный': 23.4,
@@ -170,54 +212,44 @@ def task_27953():
     }
 
     # Сюжеты задачи
-    values_list = [
-        {'element': 'рельс', 'genitive_case': 'рельса', 'material': 'Железо, чистое', 'belong': 'его', 'min_length': 1,
-         'max_length': 25},
-        {'element': 'линейка', 'genitive_case': 'линейки', 'material': 'Сталь', 'belong': 'её',
-         'step_length': [0.150, 0.300, 0.500, 1, 1.5, 2, 3]
-         },
-        {'element': 'рулетка', 'genitive_case': 'рулетки', 'material': 'Сталь', 'belong': 'её',
-         'step_length': [3, 5, 8, 10, 15, 20, 30, 50, 60]
-         },
-        {'element': 'медный стержень', 'genitive_case': 'медного стержня', 'material': 'Медь', 'belong': 'его',
-         'step_length': [1, 1.2, 1.5, 2, 2.2, 2.5, 3]
-         },
-        {'element': 'алюминиевый потолочный карниз', 'genitive_case': 'алюминиевого потолочного карниза',
-         'material': 'Алюминий', 'belong': 'его',
-         'step_length': [
-             1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20, 3.40, 3.60, 4.00, 1.00, 4.20, 4.40, 4.60, 4.80
-         ]
-         },
-    ]
+    values_list = (
+        {'element': 'рельс', 'min_length': 1, 'max_length': 25,
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Сталь')},
+        {'element': 'линейка', 'step_length': [0.150, 0.300, 0.500, 1, 1.5, 2, 3],
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Сталь')},
+        {'element': 'рулетка', 'step_length': [3, 5, 8, 10, 15, 20, 30, 50, 60],
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Сталь')},
+        {'element': 'медный стержень', 'step_length': [1, 1.2, 1.5, 2, 2.2, 2.5, 3],
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Медь')},
+        {'element': 'алюминиевый потолочный карниз', 'step_length': [
+            1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20, 3.40, 3.60, 4.00, 1.00, 4.20, 4.40, 4.60, 4.80
+         ], 'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Алюминий')},
+    )
+
+
 
     # Случайным образом получаем сюжет задачи
     data = np.random.choice(values_list)
 
-    # Получаем элементы сюжета
-    element = data.get('element')
-    genitive_case = data.get('genitive_case')
-    belong = data.get('belong')
-    coefficient = thermal_expansion_coefficient.get(data.get('material'))
-    min_length = data.get('min_length')
-    max_length = data.get('max_length')
-    length = data.get('step_length')
+    # Получаем nемпературный коэффициент линейного расширения
+    coefficient = data.get('thermal_expansion_coefficient')
+
 
     while True:
         if isinstance(coefficient, dict):
             coefficient = round(np.random.uniform(coefficient.get('min_length'), coefficient.get('max_length')), 2)
 
-        if min_length and max_length:
-            zero_length = np.random.randint(min_length, max_length)
-        elif length:
-            zero_length = np.random.choice(length)
-
+        if data.get('min_length') and data.get('max_length'):
+            zero_length = np.random.randint(data.get('min_length'), data.get('max_length'))
+        elif data.get('step_length'):
+            zero_length = np.random.choice(data.get('step_length'))
         alpha = coefficient * 10 ** (-5)
         increase = np.random.randint(1, 10)
-        task = (f'При температуре ' + '\(0^{\circ}C\)' + f' {element} имеет длину ' + r'\(l_{\circ}=' + latex(zero_length) + r'\)' +
-                f'м. При возрастании температуры происходит тепловое расширение {genitive_case}, и {belong} длина, выраженная в '
-                f'метрах, меняется по закону ' + r'\(l(t^{\circ})=l_0(1+\alpha*t^{\circ})\),' + ' где '
-                + r'\(\alpha=' + latex(coefficient) + '*10^{-5}(^{\circ}C^{-1})' + r'\)' + ' — коэффициент теплового расширения, '
-                + '\(t^{\circ}\)' + f' — температура (в градусах Цельсия). При какой температуре {element} '
+        task = (f'При температуре ' + '\(0^{\circ}C\)' + f' {data.get("element")} имеет длину ' + r'\(l_{\circ}=' + latex(zero_length) + r'\)' +
+                f'м. При возрастании температуры происходит тепловое расширение {choosing_declension_form(data.get("element"), case="gent")}, и {get_modified_pronoun(word=data.get("element").split()[-1], сase="gen2", pronoun_masc="он", pronoun_femn="она", pronoun_neut="оно")} длина, выраженная в '
+                f'метрах, меняется по закону ' + r'\(l(t^{\circ})=l_0(1+\alpha{\cdot}t^{\circ})\),' + ' где '
+                + r'\(\alpha=' + latex(coefficient) + '{\cdot}10^{-5}(^{\circ}C^{-1})' + r'\)' + ' — коэффициент теплового расширения, '
+                + '\(t^{\circ}\)' + f' — температура (в градусах Цельсия). При какой температуре {data.get("element")} '
                 f'удлинится на {increase}мм? Ответ выразите в градусах Цельсия.')
         answer = round(increase * 10 ** (-3) / (alpha * zero_length))
         if 1 <= answer <= 200:
