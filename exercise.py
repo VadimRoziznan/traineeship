@@ -218,7 +218,7 @@ def task_27953():
          'max_length': 25,
          'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Сталь')},
         {'element': 'линейка',
-         'step_length': [0.150, 0.300, 0.500, 1, 1.5, 2, 3],
+         'step_length': [0.15, 0.3, 0.5, 1, 1.5, 2, 3],
          'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Сталь')},
         {'element': 'рулетка',
          'step_length': [3, 5, 8, 10, 15, 20, 30, 50, 60],
@@ -227,8 +227,42 @@ def task_27953():
          'step_length': [1, 1.2, 1.5, 2, 2.2, 2.5, 3],
          'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Медь')},
         {'element': 'алюминиевый потолочный карниз',
-         'step_length': [1.40, 1.60, 1.80, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00, 3.20, 3.40, 3.60, 4.00, 1.00, 4.20,
-                         4.40, 4.60, 4.80],
+         'step_length': [1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 4, 4.2, 4.4, 4.6, 4.8],
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Алюминий')},
+        {'element': 'витринное стекло',
+         'min_length': 1,
+         'max_length': 4,
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get(
+             'Стекло витринное (зеркальное, листовое)')},
+        {'element': 'серебряная цепочка',
+         'step_length': [0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7],
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Серебро')},
+        {'element': 'упаковочная пленка',
+         'min_length': 1,
+         'max_length': 10,
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Полиэтилен (PE)')},
+        {'element': 'бетонная стена',
+         'min_length': 1,
+         'max_length': 3,
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Бетон')},
+        {'element': 'медная проволока',
+         'min_length': 1,
+         'max_length': 100,
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Медь')},
+        {'element': 'железный мост',
+         'min_length': 18.6,
+         'max_length': 32.6,
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Железо, литое')},
+        {'element': 'золотая цепочка',
+         'step_length': [0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7],
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Золото')},
+        {'element': 'стекло армированное',
+         'min_length': 1,
+         'max_length': 3.21,
+         'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('ABS - стекло, армированное волокнами')},
+        {'element': 'самолёт',
+         'min_length': 5,
+         'max_length': 30,
          'thermal_expansion_coefficient': list_thermal_expansion_coefficient.get('Алюминий')},
     )
 
@@ -239,11 +273,9 @@ def task_27953():
     # Получаем температурный коэффициент линейного расширения
     coefficient = data.get('thermal_expansion_coefficient')
 
-
     while True:
         if isinstance(coefficient, dict):
             coefficient = round(np.random.uniform(coefficient.get('min_length'), coefficient.get('max_length')), 2)
-
         if data.get('min_length') and data.get('max_length'):
             zero_length = np.random.randint(data.get('min_length'), data.get('max_length'))
         elif data.get('step_length'):
