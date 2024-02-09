@@ -210,127 +210,99 @@ def task_27953():
 
     # Сюжеты задачи. Оформление:
     # "element": укажите название элемента
-    # "size_list": если размеры имеют стандартный шаг, замените значения start, stop, step
+    # "size_list": размер(ы) элемента, если размеры имеют стандартный шаг, замените значения start, stop, step в
+    # np.arange(start, stop, step) где start - минимальная длина, stop - максимальная длина + 1 шаг, step - шаг, если
+    # размеры имеют не стандартный шаг укажите их в [].
+    # "thermal_expansion_coefficient": температурный коэффициент линейного расширения содержит в себе
+    # "value": значение коэффициента, замените значения start, stop, step в np.arange(start, stop, step)
+    # где start - минимальное значение коэффициент, stop - максимальное значение коэффициента + 1 шаг, step - шаг, если
+    # коэффициент не лежит в диапазоне значений укажите в start - значение коэффициента, в stop - значение
+    # коэффициента + 1, step - шаг равный 1. Напротив строки "value" в комментариях указывается название материала.
+    #
 
     values_list = (
         {
             "element": "рельс",
             "size_list": np.arange(1, 25, 1),
             "thermal_expansion_coefficient": {
-                "name": "Сталь",
-                "starting_value": 1.3,
-                "final_value": 2,
-                "step_value": 1,
+                "value": np.arange(1.3, 2, 1),  # Сталь.
             },
         },
         {
             "element": "линейка",
             "size_list": [0.15, 0.3, 0.5, 1, 1.5, 2, 3],
             "thermal_expansion_coefficient": {
-                "name": "Сталь",
-                "starting_value": 1.3,
-                "final_value": 2,
-                "step_value": 1,
+                "value": np.arange(1.3, 2, 1),  # Сталь.
             },
         },
         {
             "element": "рулетка",
             "size_list": [3, 5, 8, 10, 15, 20, 30, 50, 60],
             "thermal_expansion_coefficient": {
-                "name": "Сталь",
-                "starting_value": 1.3,
-                "final_value": 2,
-                "step_value": 1,
+                "value": np.arange(1.3, 2, 1),  # Сталь.
             },
         },
         {
             "element": "медный стержень",
             "size_list": np.arange(1, 3.5, 0.5),
             "thermal_expansion_coefficient": {
-                "name": "Медь",
-                "starting_value": 1.66,
-                "final_value": 2,
-                "step_value": 1,
+                "value": np.arange(1.66, 2, 1),  # Медь.
             },
         },
         {
             "element": "алюминиевый потолочный карниз",
             "size_list": np.arange(1.4, 5, 0.2),
             "thermal_expansion_coefficient": {
-                "name": "Алюминий",
-                "starting_value": 2.22,
-                "final_value": 3,
-                "step_value": 1,
+                "value": np.arange(2.22, 3, 1),  # Алюминий.
             },
         },
         {
             "element": "витринное стекло",
             "size_list": np.arange(1, 4.1, 0.1),
             "thermal_expansion_coefficient": {
-                "name": "Стекло витринное (зеркальное, листовое)",
-                "starting_value": 0.9,
-                "final_value": 1,
-                "step_value": 1,
+                "value": np.arange(0.9, 1, 1),  # Стекло витринное (зеркальное, листовое).
             },
         },
         {
             "element": "серебряная цепочка",
             "size_list": np.arange(0.35, 0.75, 0.05),
             "thermal_expansion_coefficient": {
-                "name": "Серебро",
-                "starting_value": 1.92,
-                "final_value": 2,
-                "step_value": 1,
+                "value": np.arange(1.92, 2, 1),  # Серебро.
             },
         },
         {
             "element": "упаковочная пленка",
             "size_list": np.arange(1, 10.1, 0.1),
             "thermal_expansion_coefficient": {
-                "name": "Полиэтилен (PE)",
-                "starting_value": 20,
-                "final_value": 21,
-                "step_value": 1,
+                "value": np.arange(20, 21, 1),  # Полиэтилен (PE).
             },
         },
         {
             "element": "бетонная стена",
             "size_list": np.arange(1, 3.1, 0.1),
             "thermal_expansion_coefficient": {
-                "name": "Бетон",
-                "starting_value": 1.45,
-                "final_value": 2,
-                "step_value": 1,
+                "value": np.arange(1.45, 2, 1),  # Бетон.
             },
         },
         {
             "element": "медная проволока",
             "size_list": np.arange(1, 101, 0.5),
             "thermal_expansion_coefficient": {
-                "name": "Медь",
-                "starting_value": 1.66,
-                "final_value": 2,
-                "step_value": 1,
+                "value": np.arange(1.66, 2, 1),  # Медь.
             },
         },
         {
             "element": "железный мост",
             "size_list": np.arange(18.6, 32.6, 0.1),
             "thermal_expansion_coefficient": {
-                "name": "Железо, литое",
-                "starting_value": 1.04,
-                "final_value": 2,
-                "step_value": 1,
+                "value": np.arange(1.04, 2, 1),  # Железо, литое.
             },
         },
         {
             "element": "золотая цепочка",
             "size_list": np.arange(0.35, 0.75, 0.05),
             "thermal_expansion_coefficient": {
-                "name": "Золото",
-                "starting_value": 1.42,
-                "final_value": 2,
-                "step_value": 1,
+                "value": np.arange(1.42, 2, 1),  # Золото.
             },
         },
         {
@@ -338,9 +310,7 @@ def task_27953():
             "size_list": np.arange(1, 3.31, 0.05),
             "thermal_expansion_coefficient": {
                 "name": "ABS - стекло, армированное волокнами",
-                "starting_value": 3.04,
-                "final_value": 4,
-                "step_value": 1,
+                "value": np.arange(3.04, 4, 1),
             },
         },
         {
@@ -349,9 +319,6 @@ def task_27953():
             "thermal_expansion_coefficient": {
                 "name": "Алюминий",
                 "value": np.arange(2.22, 3, 1),
-                "starting_value": 2.22,
-                "final_value": 3,
-                "step_value": 1,
             },
         },
     )
@@ -363,11 +330,7 @@ def task_27953():
         # Получаем температурный коэффициент линейного расширения
         coefficient = round(
             np.random.choice(
-                np.arange(
-                    data.get("thermal_expansion_coefficient").get("starting_value"),
-                    data.get("thermal_expansion_coefficient").get("final_value"),
-                    data.get("thermal_expansion_coefficient").get("step_value"),
-                )
+                data.get("thermal_expansion_coefficient").get("value"),
             ),
             2,
         )
