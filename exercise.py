@@ -333,7 +333,6 @@ def task_27953():
             ),
             2,
         )
-
         zero_length = round(np.random.choice(data.get("size_list")), 2)
         alpha = coefficient * 10 ** (-5)
         increase = round(np.random.uniform(0.1, 10), 1)
