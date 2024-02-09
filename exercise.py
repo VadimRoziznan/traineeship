@@ -206,18 +206,18 @@ def task_27953():
         "Этилен винилацетат (EVA)": 18,
         "Этилен и этилакрилат (EEA)": 20.5,
         "Эфир виниловый": {"min_length": 1.6, "max_length": 2.2},
-        "test": (432, 500, 1),
     }
 
-    # Сюжеты задачи
+    # Сюжеты задачи. Оформление:
+    # "element": укажите название элемента
+    # "size_list": если размеры имеют стандартный шаг, замените значения start, stop, step
+
     values_list = (
         {
             "element": "рельс",
             "size_list": np.arange(1, 25, 1),
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Сталь"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Сталь",
                 "starting_value": 1.3,
                 "final_value": 2,
                 "step_value": 1,
@@ -226,10 +226,8 @@ def task_27953():
         {
             "element": "линейка",
             "size_list": [0.15, 0.3, 0.5, 1, 1.5, 2, 3],
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Сталь"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Сталь",
                 "starting_value": 1.3,
                 "final_value": 2,
                 "step_value": 1,
@@ -238,10 +236,8 @@ def task_27953():
         {
             "element": "рулетка",
             "size_list": [3, 5, 8, 10, 15, 20, 30, 50, 60],
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Сталь"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Сталь",
                 "starting_value": 1.3,
                 "final_value": 2,
                 "step_value": 1,
@@ -250,10 +246,8 @@ def task_27953():
         {
             "element": "медный стержень",
             "size_list": np.arange(1, 3.5, 0.5),
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Медь"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Медь",
                 "starting_value": 1.66,
                 "final_value": 2,
                 "step_value": 1,
@@ -262,10 +256,8 @@ def task_27953():
         {
             "element": "алюминиевый потолочный карниз",
             "size_list": np.arange(1.4, 5, 0.2),
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Алюминий"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Алюминий",
                 "starting_value": 2.22,
                 "final_value": 3,
                 "step_value": 1,
@@ -274,10 +266,8 @@ def task_27953():
         {
             "element": "витринное стекло",
             "size_list": np.arange(1, 4.1, 0.1),
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Стекло витринное (зеркальное, листовое)"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Стекло витринное (зеркальное, листовое)",
                 "starting_value": 0.9,
                 "final_value": 1,
                 "step_value": 1,
@@ -286,10 +276,8 @@ def task_27953():
         {
             "element": "серебряная цепочка",
             "size_list": np.arange(0.35, 0.75, 0.05),
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Серебро"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Серебро",
                 "starting_value": 1.92,
                 "final_value": 2,
                 "step_value": 1,
@@ -298,10 +286,8 @@ def task_27953():
         {
             "element": "упаковочная пленка",
             "size_list": np.arange(1, 10.1, 0.1),
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Полиэтилен (PE)"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Полиэтилен (PE)",
                 "starting_value": 20,
                 "final_value": 21,
                 "step_value": 1,
@@ -310,10 +296,8 @@ def task_27953():
         {
             "element": "бетонная стена",
             "size_list": np.arange(1, 3.1, 0.1),
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Бетон"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Бетон",
                 "starting_value": 1.45,
                 "final_value": 2,
                 "step_value": 1,
@@ -322,10 +306,8 @@ def task_27953():
         {
             "element": "медная проволока",
             "size_list": np.arange(1, 101, 0.5),
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Медь"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Медь",
                 "starting_value": 1.66,
                 "final_value": 2,
                 "step_value": 1,
@@ -334,10 +316,8 @@ def task_27953():
         {
             "element": "железный мост",
             "size_list": np.arange(18.6, 32.6, 0.1),
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Железо, литое"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Железо, литое",
                 "starting_value": 1.04,
                 "final_value": 2,
                 "step_value": 1,
@@ -346,10 +326,8 @@ def task_27953():
         {
             "element": "золотая цепочка",
             "size_list": np.arange(0.35, 0.75, 0.05),
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Золото"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Золото",
                 "starting_value": 1.42,
                 "final_value": 2,
                 "step_value": 1,
@@ -358,10 +336,8 @@ def task_27953():
         {
             "element": "стекло армированное",
             "size_list": np.arange(1, 3.31, 0.05),
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "ABS - стекло, армированное волокнами"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "ABS - стекло, армированное волокнами",
                 "starting_value": 3.04,
                 "final_value": 4,
                 "step_value": 1,
@@ -370,10 +346,9 @@ def task_27953():
         {
             "element": "самолёт",
             "size_list": np.arange(5, 31, 1),
-            "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
-                "Алюминий"
-            ),
-            "test_coefficient": {
+            "thermal_expansion_coefficient": {
+                "name": "Алюминий",
+                "value": np.arange(2.22, 3, 1),
                 "starting_value": 2.22,
                 "final_value": 3,
                 "step_value": 1,
@@ -381,39 +356,21 @@ def task_27953():
         },
     )
 
-    # print(np.random.choice([20, 4, 6]))
-    t = values_list[-1].get("test_coefficient")
-    # k = np.random.choice(np.array(t))
-    # print(t)
-    # print(np.arange(20, 1, 1))
-
     # Случайным образом получаем сюжет задачи
     data = np.random.choice(values_list)
 
-    test = round(
-        np.random.choice(
-            np.arange(
-                data.get("test_coefficient").get("starting_value"),
-                data.get("test_coefficient").get("final_value"),
-                data.get("test_coefficient").get("step_value"),
-            )
-        ),
-        2,
-    )
-
-    print(data.get("element"), test)
-
-    # Получаем температурный коэффициент линейного расширения
-    coefficient = data.get("thermal_expansion_coefficient")
-
     while True:
-        if isinstance(coefficient, dict):
-            coefficient = round(
-                np.random.uniform(
-                    coefficient.get("min_length"), coefficient.get("max_length")
-                ),
-                2,
-            )
+        # Получаем температурный коэффициент линейного расширения
+        coefficient = round(
+            np.random.choice(
+                np.arange(
+                    data.get("thermal_expansion_coefficient").get("starting_value"),
+                    data.get("thermal_expansion_coefficient").get("final_value"),
+                    data.get("thermal_expansion_coefficient").get("step_value"),
+                )
+            ),
+            2,
+        )
 
         zero_length = round(np.random.choice(data.get("size_list")), 2)
         alpha = coefficient * 10 ** (-5)
@@ -458,13 +415,15 @@ def task_27953():
             )
 
             if matcher > correction_percentage:
-                report.append(f"Элемент с номером {index} имеет совпадение {matcher}")
+                report.append(
+                    f"Сюжет №{index} {plot.get('element')} имеет совпадение {matcher}%"
+                )
 
         return report
 
-    # При необходимости проверить сюжеты на вхождение имени раскомментировать код, измените значение name на необходимый,
-    # при необходимости измените процент коррекции.
-    # pprint(checking_plot(name='медные Стержни', checklist=values_list, correction_percentage=50))
+    # При необходимости проверить сюжеты на вхождение имени раскомментировать код, измените значение name
+    # на необходимый, при необходимости измените процент коррекции.
+    # print(checking_plot(name='медные Стержни', checklist=values_list, correction_percentage=50))
 
     return task, answer
 
@@ -500,6 +459,5 @@ def task_27954():
 
 
 if __name__ == "__main__":
-
     print(task_27953())
     # print(task_27954())
