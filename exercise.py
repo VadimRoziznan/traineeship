@@ -206,6 +206,7 @@ def task_27953():
         "Этилен винилацетат (EVA)": 18,
         "Этилен и этилакрилат (EEA)": 20.5,
         "Эфир виниловый": {"min_length": 1.6, "max_length": 2.2},
+        "test": (432, 500, 1),
     }
 
     # Сюжеты задачи
@@ -216,6 +217,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Сталь"
             ),
+            "test_coefficient": {
+                "starting_value": 1.3,
+                "final_value": 2,
+                "step_value": 1,
+            },
         },
         {
             "element": "линейка",
@@ -223,6 +229,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Сталь"
             ),
+            "test_coefficient": {
+                "starting_value": 1.3,
+                "final_value": 2,
+                "step_value": 1,
+            },
         },
         {
             "element": "рулетка",
@@ -230,6 +241,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Сталь"
             ),
+            "test_coefficient": {
+                "starting_value": 1.3,
+                "final_value": 2,
+                "step_value": 1,
+            },
         },
         {
             "element": "медный стержень",
@@ -237,6 +253,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Медь"
             ),
+            "test_coefficient": {
+                "starting_value": 1.66,
+                "final_value": 2,
+                "step_value": 1,
+            },
         },
         {
             "element": "алюминиевый потолочный карниз",
@@ -244,6 +265,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Алюминий"
             ),
+            "test_coefficient": {
+                "starting_value": 2.22,
+                "final_value": 3,
+                "step_value": 1,
+            },
         },
         {
             "element": "витринное стекло",
@@ -251,6 +277,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Стекло витринное (зеркальное, листовое)"
             ),
+            "test_coefficient": {
+                "starting_value": 0.9,
+                "final_value": 1,
+                "step_value": 1,
+            },
         },
         {
             "element": "серебряная цепочка",
@@ -258,6 +289,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Серебро"
             ),
+            "test_coefficient": {
+                "starting_value": 1.92,
+                "final_value": 2,
+                "step_value": 1,
+            },
         },
         {
             "element": "упаковочная пленка",
@@ -265,6 +301,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Полиэтилен (PE)"
             ),
+            "test_coefficient": {
+                "starting_value": 20,
+                "final_value": 21,
+                "step_value": 1,
+            },
         },
         {
             "element": "бетонная стена",
@@ -272,6 +313,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Бетон"
             ),
+            "test_coefficient": {
+                "starting_value": 1.45,
+                "final_value": 2,
+                "step_value": 1,
+            },
         },
         {
             "element": "медная проволока",
@@ -279,6 +325,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Медь"
             ),
+            "test_coefficient": {
+                "starting_value": 1.66,
+                "final_value": 2,
+                "step_value": 1,
+            },
         },
         {
             "element": "железный мост",
@@ -286,6 +337,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Железо, литое"
             ),
+            "test_coefficient": {
+                "starting_value": 1.04,
+                "final_value": 2,
+                "step_value": 1,
+            },
         },
         {
             "element": "золотая цепочка",
@@ -293,6 +349,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Золото"
             ),
+            "test_coefficient": {
+                "starting_value": 1.42,
+                "final_value": 2,
+                "step_value": 1,
+            },
         },
         {
             "element": "стекло армированное",
@@ -300,6 +361,11 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "ABS - стекло, армированное волокнами"
             ),
+            "test_coefficient": {
+                "starting_value": 3.04,
+                "final_value": 4,
+                "step_value": 1,
+            },
         },
         {
             "element": "самолёт",
@@ -307,13 +373,35 @@ def task_27953():
             "thermal_expansion_coefficient": list_thermal_expansion_coefficient.get(
                 "Алюминий"
             ),
+            "test_coefficient": {
+                "starting_value": 2.22,
+                "final_value": 3,
+                "step_value": 1,
+            },
         },
     )
 
-    print(np.random.choice(list(20,)))
+    # print(np.random.choice([20, 4, 6]))
+    t = values_list[-1].get("test_coefficient")
+    # k = np.random.choice(np.array(t))
+    # print(t)
+    # print(np.arange(20, 1, 1))
 
     # Случайным образом получаем сюжет задачи
     data = np.random.choice(values_list)
+
+    test = round(
+        np.random.choice(
+            np.arange(
+                data.get("test_coefficient").get("starting_value"),
+                data.get("test_coefficient").get("final_value"),
+                data.get("test_coefficient").get("step_value"),
+            )
+        ),
+        2,
+    )
+
+    print(data.get("element"), test)
 
     # Получаем температурный коэффициент линейного расширения
     coefficient = data.get("thermal_expansion_coefficient")
