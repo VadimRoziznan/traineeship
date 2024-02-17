@@ -1,10 +1,8 @@
-from icecream import ic
 import pymorphy2
 import numpy as np
 from sympy import latex
 
 
-# Функция для text_tasks/
 def choosing_declension_form(word: (str, list), case: str) -> str:
     """
     Функция подбирает правильную форму склонения переданного слова, см. https://opencorpora.org/dict.php?act=gram,
@@ -20,7 +18,6 @@ def choosing_declension_form(word: (str, list), case: str) -> str:
         return " ".join(list_morphy)
 
 
-# Функция для text_tasks/
 def get_modified_pronoun(
     word: str, сase: str, pronoun_masc=None, pronoun_femn=None, pronoun_neut=None
 ) -> (str, None):
@@ -44,13 +41,16 @@ def get_modified_pronoun(
 
     return None
 
+
 def get_plot_from_task_27953():
-    # Сюжеты задачи.
-    # Оформление:
-    # "element": укажите название элемента.
-    # "size_list": размер(ы) элемента, если размеры имеют стандартный шаг, замените значения start, stop, step в
-    # np.arange(start, stop, step) где start - минимальная длина, stop - максимальная длина + 1 шаг, step - шаг, если
-    # размеры имеют не стандартный шаг укажите их в [value1, value2, value3...].
+    """
+    Сюжеты задачи.
+    Оформление:
+    "element": укажите название элемента.
+    "size_list": размер(ы) элемента, если размеры имеют стандартный шаг, замените значения start, stop, step в
+    np.arange(start, stop, step) где start - минимальная длина, stop - максимальная длина + 1 шаг, step - шаг, если
+    размеры имеют не стандартный шаг укажите их в [value1, value2, value3...].
+    """
 
     values_list = (
         {
@@ -127,27 +127,24 @@ def get_plot_from_task_27953():
 
     return np.random.choice(values_list)
 
+
 def task_27953():
     """
     Задача №27953 с портала https://ege.sdamgia.ru/problem?id=27953
     """
 
-
-
     # Случайным образом получаем сюжет задачи
     plot = get_plot_from_task_27953()
 
     while True:
-
-        zero_length = round(np.random.choice(plot.get("size_list")), 2)
-        alpha = plot.get("thermal_expansion_coefficient") * 10 ** (-5)
-        increase = round(np.random.uniform(0.1, 10), 1)
+        length = round(np.random.choice(plot.get("size_list")), 2)
+        extension = round(np.random.uniform(0.1, 10), 1)
         task = (
             f"При температуре "
             + "\(0^{\circ}C\)"
             + f' {plot.get("element")} имеет длину '
             + r"\(l_{\circ}="
-            + latex(zero_length)
+            + latex(length)
             + r"\)"
             + f"м. При возрастании температуры происходит тепловое расширение "
             f'{choosing_declension_form(plot.get("element"), case="gent")}, '
@@ -162,9 +159,14 @@ def task_27953():
             + " — коэффициент теплового расширения, "
             + "\(t^{\circ}\)"
             + f' — температура (в градусах Цельсия). При какой температуре {plot.get("element")} '
-            f"удлинится на {increase}мм? Ответ выразите в градусах Цельсия."
+            f"удлинится на {extension}мм? Ответ выразите в градусах Цельсия."
         )
-        answer = round(increase * 10 ** (-3) / (alpha * zero_length))
+        answer = round(
+            extension
+            * 10 ** (-3)
+            / (plot.get("thermal_expansion_coefficient") * 10 ** (-5) * length),
+            1,
+        )
         if 1 <= answer <= 60:
             break
 
@@ -202,7 +204,5 @@ def task_27954():
 
 
 if __name__ == "__main__":
-    for el in range(1000):
-        ic(task_27953())
+    print(task_27953())
     # print(task_27954())
-
